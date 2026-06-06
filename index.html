@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Игровой Портал KEGS — Главная</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ВЕРХНЯЯ ПАНЕЛЬ С ЛОГОТИПОМ И МЕНЮ -->
+    <header class="main-header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <img src="images/logo.png" alt="Logo">
+            </a>
+            <nav class="horizontal-menu">
+                <a href="index.html" class="menu-item active">Главная</a>
+                <a href="https://example.com" target="_blank" class="menu-item">Основной Сайт</a>
+                <a href="https://example.com" target="_blank" class="menu-item">Магазин Доната</a>
+                <a href="https://example.com" target="_blank" class="menu-item">Форум Сообщества</a>
+                <a href="rules/index.html" class="menu-item">Правила</a>
+                <a href="terms/index.html" class="menu-item">Соглашение</a>
+                <a href="admins/index.html" class="menu-item">Администрация</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <h2>👥 НАШИ ИГРОВЫЕ СЕРВЕРА</h2>
+        
+        <div class="servers-grid">
+            <div class="server-card" data-ip="play.my-server1.ru">
+                <div class="server-name">Survival 1.20</div>
+                <div class="server-ip">play.my-server1.ru</div>
+                <div class="server-hint">Нажми, чтобы скопировать IP</div>
+            </div>
+
+            <div class="server-card" data-ip="skyblock.my-server.ru">
+                <div class="server-name">SkyBlock</div>
+                <div class="server-ip">skyblock.my-server.ru</div>
+                <div class="server-hint">Нажми, чтобы скопировать IP</div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>📜 Навигация</h3>
+                <ul>
+                    <li><a href="index.html">Главная страница</a></li>
+                    <li><a href="rules/index.html">Правила проекта</a></li>
+                    <li><a href="terms/index.html">Условия использования</a></li>
+                    <li><a href="admins/index.html">Администрация</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3>⚠️ Помощь</h3>
+                <ul>
+                    <li><a href="rules/index.html">Тех. Поддержка</a></li>
+                    <li><a href="terms/index.html">Конфиденциальность</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="copyright-section">
+            <div class="copyright-text">
+                <!-- Секретный триггер-ссылка на знаке копирайта -->
+                <a href="kegasecrets/index.html" class="secret-trigger">©</a> 2010 - <span id="current-year">2026</span> <span id="project-name">Загрузка...</span>. Все права защищены.<br>
+                NOT AN OFFICIAL MINECRAFT PRODUCT. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR OTHERS CORPORATIONS.
+            </div>
+            <div class="copyright-links">
+                <a href="rules/index.html">DMCA</a>
+                <a href="terms/index.html">Terms of Use</a>
+            </div>
+        </div>
+
+        <div class="bottom-banner">
+            <a href="details/index.html">
+                <img src="images/banner.png" alt="Советуем посетить">
+            </a>
+        </div>
+    </footer>
+
+    <div id="toast" class="toast">IP скопирован в буфер обмена!</div>
+
+    <script src="script.js"></script>
+</body>
+</html>
