@@ -1,46 +1,254 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Администрация Проекта</title>
-    <link rel="stylesheet" href="../style.css">
-</head>
-<body>
+/* Базовые стили темного интерфейса */
+body {
+    background-color: #121212;
+    color: #e0e0e0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
 
-    <header class="main-header">
-        <div class="header-container">
-            <a href="../index.html" class="logo">
-                <img src="../images/logo.png" alt="Logo">
-            </a>
-            <nav class="horizontal-menu">
-                <a href="../index.html" class="menu-item">Главная</a>
-                <a href="https://example.com" target="_blank" class="menu-item">Основной Сайт</a>
-                <a href="https://example.com" target="_blank" class="menu-item">Магазин Доната</a>
-                <a href="https://example.com" target="_blank" class="menu-item">Форум Сообщества</a>
-                <a href="../rules/index.html" class="menu-item">Правила</a>
-                <a href="../terms/index.html" class="menu-item">Соглашение</a>
-                <a href="index.html" class="menu-item active">Администрация</a>
-            </nav>
-        </div>
-    </header>
+/* === ШАПКА САЙТА И СКРОЛЛ-МЕНЮ === */
+.main-header {
+    background-color: #0b0b0b;
+    border-bottom: 1px solid #222;
+    padding: 10px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
 
-    <div class="container">
-        <a href="../index.html" class="back-link">← На главную</a>
-        <h2>👑 НАША АДМИНИСТРАЦИЯ</h2>
-        <div id="admins-grid" class="admins-grid">
-            <div class="loading-text">Загрузка списка администрации...</div>
-        </div>
-    </div>
+.header-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
 
-    <footer>
-        <div class="copyright-section">
-            <div class="copyright-text">
-                <a href="../kegasecrets/index.html" class="secret-trigger">©</a> 2010 - <span id="current-year">2026</span> <span id="project-name">Загрузка...</span>. Все права защищены.
-            </div>
-        </div>
-    </footer>
+.logo {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
 
-    <script src="../script.js"></script>
-</body>
-</html>
+.logo img {
+    height: 36px;
+    width: auto;
+    display: block;
+}
+
+.horizontal-menu {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    white-space: nowrap;
+    flex-grow: 1;
+    padding-bottom: 5px;
+    scrollbar-width: none; 
+}
+
+.horizontal-menu::-webkit-scrollbar {
+    display: none; 
+}
+
+.menu-item {
+    color: #aaa;
+    text-decoration: none;
+    font-size: 0.95em;
+    padding: 8px 16px;
+    background-color: #161616;
+    border: 1px solid #252525;
+    border-radius: 20px;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.menu-item:hover {
+    color: #fff;
+    background-color: #222;
+    border-color: #444;
+}
+
+.menu-item.active {
+    color: #ffcc00;
+    background-color: #1a1a1a;
+    border-color: #ffcc00;
+    font-weight: bold;
+}
+
+/* Основной контейнер содержимого */
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    flex: 1;
+}
+
+h2 {
+    color: #fff;
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 25px;
+    font-size: 1.5em;
+    letter-spacing: 1px;
+}
+
+/* === ИГРОВЫЕ СЕРВЕРА === */
+.servers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.server-card {
+    background-color: #1e1e1e;
+    border: 1px solid #2d2d2d;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.2s, border-color 0.2s, transform 0.1s;
+}
+
+.server-card:hover { background-color: #252525; border-color: #444; }
+.server-card:active { transform: scale(0.98); }
+
+.server-name { font-weight: bold; color: #5cff5c; font-size: 1.15em; margin-bottom: 8px; }
+.server-ip { font-size: 0.95em; color: #aaa; background: #151515; padding: 4px 8px; border-radius: 4px; display: inline-block; }
+.server-hint { font-size: 0.75em; color: #666; margin-top: 10px; }
+
+/* Уведомление о копировании */
+.toast {
+    position: fixed;
+    bottom: 140px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #4caf50;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+/* === СТРАНИЦЫ ТЕКСТА (ПРАВИЛА / ПОДРОБНОСТИ) === */
+.text-page { padding-top: 20px; }
+.back-link { color: #ffcc00; text-decoration: none; font-size: 0.95em; display: inline-block; margin-bottom: 20px; }
+.back-link:hover { text-decoration: underline; }
+.content-block { background-color: #1a1a1a; border: 1px solid #252525; padding: 30px; border-radius: 8px; line-height: 1.7; }
+.content-block h3 { color: #ffcc00; margin-top: 0; }
+
+.promo-button {
+    display: inline-block;
+    background-color: #ffcc00;
+    color: #121212;
+    padding: 12px 30px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-decoration: none;
+    margin-top: 20px;
+    transition: background 0.2s;
+}
+.promo-button:hover { background-color: #ffe066; }
+
+/* === КАРТОЧКИ АДМИНИСТРАЦИИ === */
+.admins-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+.admin-card {
+    background-color: #1a1a1a;
+    border: 1px solid #252525;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.admin-card:hover { transform: translateY(-5px); border-color: #444; }
+
+.admin-avatar {
+    width: 64px;
+    height: 64px;
+    background-color: #121212;
+    border-radius: 8px;
+    padding: 5px;
+    border: 1px solid #333;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.admin-avatar img {
+    width: 100%;
+    height: 100%;
+    image-rendering: pixelated;
+    object-fit: contain;
+}
+
+.admin-nickname { font-size: 1.2em; font-weight: bold; color: #fff; margin-bottom: 5px; }
+.admin-role { font-size: 0.9em; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+.loading-text { color: #666; text-align: center; grid-column: 1 / -1; padding: 40px; }
+
+/* === ПОДВАЛ САЙТА (FOOTER) === */
+footer {
+    background-color: #1a1a1a;
+    border-top: 2px solid #252525;
+    padding: 40px 20px 20px 20px;
+    margin-top: auto;
+}
+
+.footer-content { max-width: 1000px; margin: 0 auto 30px auto; display: flex; flex-wrap: wrap; gap: 80px; }
+.footer-column { min-width: 200px; }
+.footer-column h3 { color: #ffcc00; font-size: 1.1em; margin-bottom: 15px; text-transform: uppercase; }
+.footer-column ul { list-style: none; padding: 0; margin: 0; }
+.footer-column li { margin-bottom: 10px; }
+.footer-column a { color: #bbb; text-decoration: none; }
+.footer-column a:hover { color: #fff; text-decoration: underline; }
+
+/* Раздел защиты прав */
+.copyright-section {
+    max-width: 1000px;
+    margin: 0 auto 25px auto;
+    border-top: 1px solid #2d2d2d;
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 15px;
+    font-size: 0.85em;
+    color: #666;
+}
+.copyright-links a { color: #ffcc00; text-decoration: none; margin-left: 20px; }
+.copyright-links a:hover { text-decoration: underline; }
+
+/* Рекламный баннер */
+.bottom-banner { max-width: 1000px; margin: 0 auto; text-align: center; }
+.bottom-banner a { display: block; overflow: hidden; border-radius: 6px; border: 1px solid #333; }
+.bottom-banner img { width: 100%; height: auto; display: block; }
+
+/* === СЕКРЕТНАЯ ПАСХАЛКА === */
+.secret-trigger {
+    color: inherit;
+    text-decoration: none;
+    cursor: default;
+}
+/* Сохраняет все переносы строк (Enter) и пробелы из Блокнота */
+.content-block {
+    white-space: pre-line; 
+}
