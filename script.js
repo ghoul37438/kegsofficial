@@ -67,3 +67,38 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+    // === 6. ПРОКРУТКА МЕНЮ МЫШКОЙ (CLICK AND DRAG) ===
+    const slider = document.querySelector('.horizontal-menu');
+    if (slider) {
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        slider.addEventListener('mousedown', (e) => {
+            isDown = true;
+            slider.classList.add('grabbing');
+            // Запоминаем начальную точку клика мыши
+            startX = e.pageX - slider.offsetLeft;
+            // Запоминаем, насколько меню уже было прокручено
+            scrollLeft = slider.scrollLeft;
+        });
+
+        slider.addEventListener('mouseleave', () => {
+            isDown = false;
+            slider.classList.remove('grabbing');
+        });
+
+        slider.addEventListener('mouseup', () => {
+            isDown = false;
+            slider.classList.remove('grabbing');
+        });
+
+        slider.addEventListener('mousemove', (e) => {
+            if (!isDown) return; // Если кнопка мыши не зажата, ничего не делаем
+            e.preventDefault();
+            // Считаем, на сколько пикселей сдвинулась мышь
+            const x = e.pageX - slider.offsetLeft;
+            const walk = (x - startX) * 1.5; // Число 1.5 отвечает за скорость прокрутки
+            slider.scrollLeft = scrollLeft - walk;
+        });
+    }
