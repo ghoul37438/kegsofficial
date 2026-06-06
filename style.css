@@ -252,3 +252,13 @@ footer {
 .content-block {
     white-space: pre-line; 
 }
+/* Изменение курсора при наведении на меню сайтов */
+.horizontal-menu {
+    cursor: grab;
+    user-select: none; /* Запрещает случайное выделение текста кнопок при перетаскивании */
+}
+
+/* Изменение курсора в момент зажатия и перетаскивания мышкой */
+.horizontal-menu.grabbing {
+    cursor: grabbing;
+}
